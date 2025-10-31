@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import NavbarRoutesConfig from "../assets/NavabarRouteConfig";
 import { useSelector } from "react-redux";
+// Import allCategories from your updated static.js file
 import { allCategories } from "../static/static";
 import Avatar from "../../public/user.png";
 import brandlogo from "../../public/logo/brandlogo.png";
-import { User } from "lucide-react";
+import { User, ChevronRight } from "lucide-react"; // Added ChevronRight
 import UserSideBar from "../pages/userDashboard/UserSideBar";
 
 function Navbar() {
@@ -22,6 +23,7 @@ function Navbar() {
 
   const handleNavigate = (category, subcategories) => {
     setIsMenuOpen(false);
+    setDropdown(""); // Close dropdown after navigation
     const categorySlug = category.toLowerCase().replace(/\s+/g, "-");
     const subcategoriesSlug = subcategories.toLowerCase().replace(/\s+/g, "-");
     navigate(`/all/${categorySlug}/${subcategoriesSlug}`);
@@ -59,7 +61,7 @@ function Navbar() {
 
   const categories = [
     { title: "Venue", key: "Wedding Venue", gridCols: 1, width: "w-48" },
-    { title: "Vendor", key: "Wedding Vendor", gridCols: 2, width: "w-96" },
+    { title: "Vendor", key: "Wedding Vendor", gridCols: 1, width: "w-64" }, // Updated width for accordion
     { title: "Brides", key: "Bride", gridCols: 1, width: "w-48" },
     { title: "Grooms", key: "Groom", gridCols: 1, width: "w-48" },
   ];
@@ -78,7 +80,7 @@ function Navbar() {
           {/* <TopNavbar /> */}
           <nav className="w-full bg-white top-0 px-6 md:px-16 z-50 shadow-sm">
             <div
-              className={`w-full lg:flex lg:justify-between lg:items-center  py-4 ${
+              className={`w-full lg:flex lg:justify-between lg:items-center py-4 ${
                 user != null
                   ? "flex justify-between items-center"
                   : "flex justify-start items-center gap-4"
@@ -112,7 +114,7 @@ function Navbar() {
                     user != null
                       ? "flex-col items-center"
                       : "flex-row items-center gap-2"
-                  } lg:gap-3 lg:flex-row  cursor-pointer`}
+                  } lg:gap-3 lg:flex-row cursor-pointer`}
                 >
                   <img
                     src={brandlogo}
@@ -120,7 +122,7 @@ function Navbar() {
                     className={` ${user != null ? "w-10 h-10" : "w-7 h-7"} md:w-8 md:h-8 lg:w-10 lg:h-10`}
                   />
                   <span
-                    className={` xl:block text-primary  lg:text-2xl ${
+                    className={` xl:block text-primary lg:text-2xl ${
                       user != null ? "hidden md:block text-lg" : "text-xl "
                     }`}
                   >
@@ -131,15 +133,15 @@ function Navbar() {
 
               <ul
                 className={`
-              flex flex-col lg:flex-row lg:gap-4 gap-4
-              absolute lg:relative z-50 rounded-tr-lg rounded-br-lg
-              bg-white text-gray-600 font-medium
-              h-screen lg:h-0 w-3/4 left-0 top-0
-              lg:w-auto lg:top-auto lg:items-center
-              px-4 py-4 lg:py-0 lg:px-0 transition-transform
-              duration-300 ease-in-out  ${
-                isMenuOpen ? "translate-x-0" : "-translate-x-full"
-              } lg:translate-x-0`}
+               flex flex-col lg:flex-row lg:gap-4 gap-4
+               absolute lg:relative z-50 rounded-tr-lg rounded-br-lg
+               bg-white text-gray-600 font-medium
+               h-screen lg:h-0 w-3/4 left-0 top-0
+               lg:w-auto lg:top-auto lg:items-center
+               px-4 py-4 lg:py-0 lg:px-0 transition-transform
+               duration-300 ease-in-out ${
+                 isMenuOpen ? "translate-x-0" : "-translate-x-full"
+               } lg:translate-x-0`}
               >
                 <div className="flex items-center gap-2 lg:hidden">
                   <img
@@ -152,7 +154,7 @@ function Navbar() {
                   </span>
                 </div>
                 <hr />
-                
+
                 {NavbarRoutesConfig.map((route) => (
                   <li key={route.path} className="lg:inline-block">
                     <NavLink
@@ -169,7 +171,7 @@ function Navbar() {
                   </li>
                 ))}
 
-                {/* drop down  */}
+                {/* drop down */}
                 {categories.map(({ title, key, gridCols, width }) => (
                   <DropdownMenu
                     key={key}
@@ -197,8 +199,6 @@ function Navbar() {
                     </NavLink>
                   </li>
                 )}
-
-               
 
                 {user?.role !== "USER" && user?.role !== "ADMIN" && user?.role !== "SUPER_ADMIN" && (
                   <li className="text-primary lg:inline-block cursor-pointer border border-primary px-2 py-2 lg:px-2 lg:py-1 rounded-md hover:bg-pink-50">
@@ -253,18 +253,18 @@ function Navbar() {
 
           <div
             className={`fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm 
-    transition-opacity duration-300 ease-in-out
-    ${
-      isProfileOpen
-        ? "opacity-100 pointer-events-auto"
-        : "opacity-0 pointer-events-none"
-    }`}
+     transition-opacity duration-300 ease-in-out
+     ${
+       isProfileOpen
+         ? "opacity-100 pointer-events-auto"
+         : "opacity-0 pointer-events-none"
+     }`}
           >
             <div
               ref={sidebarRef}
               className={`fixed top-0 left-0 z-50 w-64 h-screen shadow-lg 
-      transform transition-transform duration-300 ease-in-out
-      ${isProfileOpen ? "translate-x-0" : "-translate-x-full"}`}
+       transform transition-transform duration-300 ease-in-out
+       ${isProfileOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
               <UserSideBar customClass={"h-screen pt-10"} />
             </div>
@@ -287,33 +287,91 @@ const DropdownMenu = ({
   gridCols = 1,
   width = "w-48",
 }) => {
+  // State to manage which category section is open (for the Accordion only)
+  const [openAccordion, setOpenAccordion] = useState(null);
+
+  const subcategoryData = allCategories[categoryKey] || [];
+
+  // Determines if we use the structured (Vendor) data or the flat data
+  const isCategorized = categoryKey === "Wedding Vendor" && Array.isArray(subcategoryData) && subcategoryData.length > 0 && typeof subcategoryData[0] === 'object';
+
+  // Use the width passed from the 'categories' array
+  const finalWidth = width;
+
+  // Function to toggle the accordion open/closed
+  const toggleAccordion = (title) => {
+    setOpenAccordion(openAccordion === title ? null : title);
+  };
+
   return (
     <li
       className="relative lg:inline-block "
       onMouseEnter={() => setDropdown(categoryKey)}
-      onMouseLeave={() => setDropdown("")}
+      onMouseLeave={() => { setDropdown(""); setOpenAccordion(null); }} // Reset accordion on mouse leave
     >
       <span className="cursor-pointer hover:text-primary">{title}</span>
       {dropdown === categoryKey && (
         <div
-          className={`absolute left-0 top-full bg-white shadow-lg ${width} py-4 z-40 `}
+          // Use default styling, as the accordion is not a wide mega-menu
+          className={`absolute left-0 top-full bg-white text-gray-800 shadow-lg ${finalWidth} py-2 z-40 rounded-b-lg border border-t-0`}
         >
-          <ul className={`grid grid-cols-${gridCols} gap-4 px-4`}>
-            {Object.entries(allCategories)
-              .filter(([category]) => category === categoryKey)
-              .flatMap(([category, subcategories]) =>
-                subcategories.map((subcategory, index) => (
-                  <li key={index}>
-                    <button
-                      onClick={() => handleNavigate(category, subcategory)}
-                      className="block text-left w-full hover:text-primary"
-                    >
-                      {subcategory}
-                    </button>
-                  </li>
-                ))
-              )}
-          </ul>
+          {isCategorized ? (
+            // ⭐ NEW ACCORDION RENDERING FOR 'Wedding Vendor' ⭐
+            <ul className="flex flex-col">
+              {subcategoryData.map((category, catIndex) => (
+                <li key={catIndex} className="w-full">
+                  {/* ACCORDION HEADER (The Parent Heading) */}
+                  <button
+                    onClick={() => toggleAccordion(category.title)}
+                    className="flex justify-between items-center w-full px-4 py-2 text-left font-semibold hover:bg-gray-100"
+                  >
+                    {category.title}
+                    <ChevronRight
+                      size={16}
+                      className={`transition-transform duration-300 ${openAccordion === category.title ? 'rotate-90' : 'rotate-0'}`}
+                    />
+                  </button>
+
+                  {/* ACCORDION CONTENT (The Sub-Options) */}
+                  {openAccordion === category.title && (
+                    <ul className="px-4 pb-2 space-y-1 bg-gray-50 border-t">
+                      {category.items.map((subcategory, subIndex) => (
+                        <li key={subIndex}>
+                          <button
+                            onClick={() => {
+                              handleNavigate(categoryKey, subcategory);
+                            }}
+                            className="block text-left w-full pl-6 py-1 text-sm hover:text-primary"
+                          >
+                            {subcategory}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            // The original flat list rendering for Venue, Bride, Groom
+            <ul className={`grid grid-cols-${gridCols} gap-2 px-4`}>
+              {Object.entries(allCategories)
+                .filter(([category]) => category === categoryKey)
+                .flatMap(([category, subcategories]) =>
+                  subcategories.map((subcategory, index) => (
+                    <li key={index}>
+                      <button
+                        onClick={() => handleNavigate(category, subcategory)}
+                        className="block text-left w-full hover:text-primary transition duration-150"
+                      >
+                        {subcategory}
+                      </button>
+                    </li>
+                  ))
+                )
+              }
+            </ul>
+          )}
         </div>
       )}
     </li>

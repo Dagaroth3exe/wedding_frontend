@@ -1,15 +1,15 @@
-
-import { MdDesignServices, MdOutlineAnalytics, MdOutlinePayment } from "react-icons/md";
-import img1 from "../../public/heroSection/c1.jpeg"
-import img2 from "../../public/heroSection/c2.jpeg"
-import img3 from "../../public/heroSection/c3.jpeg"
-import img4 from "../../public/heroSection/c4.jpeg"
-import img5 from "../../public/heroSection/c5.jpeg"
-import img6 from "../../public/heroSection/c6.jpeg"
-
-import motionlogo from "../../public/logo/motion_logo.gif"
-
-
+import {
+  MdDesignServices,
+  MdOutlineAnalytics,
+  MdOutlinePayment,
+} from "react-icons/md";
+import img1 from "../../public/heroSection/c1.jpeg";
+import img2 from "../../public/heroSection/c2.jpeg";
+import img3 from "../../public/heroSection/c3.jpeg";
+import img4 from "../../public/heroSection/c4.jpeg";
+import img5 from "../../public/heroSection/c5.jpeg";
+import img6 from "../../public/heroSection/c6.jpeg";
+import motionlogo from "../../public/logo/motion_logo.gif";
 
 export const sectorTypes = [
   "Wedding Venue",
@@ -25,7 +25,7 @@ export const weddingVenues = [
   "Marriage Garden",
   "Wedding Halls",
   "Wedding Resorts",
-  "Destination Wedding"
+  "Destination Wedding",
 ];
 
 export const weddingVendors = [
@@ -50,8 +50,9 @@ export const weddingVendors = [
   "Pandit",
   "Photobooth",
   "Astrologers",
-  "Invitation"
+  "Invitation",
 ];
+
 export const brides = [
   "Bridal Lahenga",
   "Bridal Jewellery",
@@ -59,26 +60,24 @@ export const brides = [
   "Mehndi Artist",
   "Makeup Salon",
 ];
+
 export const grooms = ["Sherwani", "Men's Grooming", "Men's Accessories"];
 
 export const links = [
   { label: "Dashboard", href: "analytics", icon: MdOutlineAnalytics },
-  { label: "Services", href: "", icon:  MdDesignServices },
-  { label: "Payment", href: "bookings", icon:MdOutlinePayment },
+  { label: "Services", href: "", icon: MdDesignServices },
+  { label: "Payment", href: "bookings", icon: MdOutlinePayment },
 ];
-
-
 
 export const servicesUnit = {
   "Wedding Lawns Farmhouse": ["Per Day", "Per Event"],
-  "Hotel": ["Per Day", "Per Room", "Per Booking"],
+  Hotel: ["Per Day", "Per Room", "Per Booking"],
   "Banquet Halls": ["Per Event", "Per Hour"],
   "Marriage Garden": ["Per Day", "Per Event"],
   "Wedding Halls": ["Per Day", "Per Booking"],
   "Wedding Resorts": ["Per Day", "Per Room", "Per Package"],
-    "Destination Wedding": ["Per Package", "Per Guest", "Per Day"],
-
-  "Caterers": ["Per Plate", "Per Guest", "Package Pricing"],
+  "Destination Wedding": ["Per Package", "Per Guest", "Per Day"],
+  Caterers: ["Per Plate", "Per Guest", "Package Pricing"],
   "Wedding Invitation": ["Per Design", "Per Order"],
   "Wedding Decor": ["Per Event", "Custom Quote"],
   "Wedding Gift": ["Per Item", "Bulk Order Pricing"],
@@ -90,43 +89,78 @@ export const servicesUnit = {
   "Wedding House": ["Per Day", "Per Booking"],
   "Tent House": ["Per Event", "Per Square Foot"],
   "Wedding Entertainment": ["Per Hour", "Per Event"],
-  "Florists": ["Per Arrangement", "Per Event"],
+  Florists: ["Per Arrangement", "Per Event"],
   "Wedding Planner": ["Fixed Fee", "Percentage of Budget"],
   "Wedding Decoration": ["Per Event", "Custom Quote"],
   "Wedding Cakes": ["Per Kg", "Per Cake"],
   "Wedding Agencies": ["Per Event", "Fixed Fee"],
   "Wedding DJ": ["Per Hour", "Per Event"],
-  "Pandit": ["Per Ceremony", "Per Hour"],
-  "Photobooth": ["Per Hour", "Per Event"],
-  "Astrologers": ["Per Consultation", "Per Package"],
-
+  Pandit: ["Per Ceremony", "Per Hour"],
+  Photobooth: ["Per Hour", "Per Event"],
+  Astrologers: ["Per Consultation", "Per Package"],
   "Bridal Lahenga": ["Per Outfit", "Per Rental Period"],
   "Bridal Jewellery": ["Per Set", "Per Day (Rental)"],
   "Bridal Makeup Artist": ["Per Person", "Bridal Package"],
   "Mehndi Artist": ["Per Hand", "Per Hour"],
   "Makeup Salon": ["Per Session", "Bridal Package"],
-
-  "Sherwani": ["Per Outfit", "Per Rental Period"],
+  Sherwani: ["Per Outfit", "Per Rental Period"],
   "Men's Grooming": ["Per Session", "Groom Package"],
   "Men's Accessories": ["Per Item", "Per Set"],
 };
 
+export const categorizedWeddingVendors = [
+  {
+    title: "Wedding & Event Services",
+    items: [
+      "Wedding Photographers",
+      "Wedding Videographers",
+      "Wedding Transportation",
+      "Wedding Music",
+      "Wedding DJ",
+      "Wedding Entertainment",
+      "Wedding House",
+      "Wedding Gift",
+    ],
+  },
+  {
+    title: "Vendors & Providers",
+    items: [
+      "Caterers",
+      "Tent House",
+      "Florists",
+      "Wedding Agencies",
+      "Pandit",
+      "Astrologers",
+    ],
+  },
+  {
+    title: "Decorations & Aesthetics",
+    items: [
+      "Wedding Decor",
+      "Wedding Decoration",
+      "Photobooth",
+      "Wedding Cakes",
+    ],
+  },
+  {
+    title: "Planning & Paperwork",
+    items: [
+      "Wedding Planner",
+      "Wedding Coordinators",
+      "Wedding Invitation",
+      "Invitation",
+    ],
+  },
+];
 
 export const allCategories = {
-  "Wedding Venue": (weddingVenues || []).map((venue) => venue?.name || venue),
-  "Wedding Vendor": (weddingVendors || []).map((vendor) => vendor?.name || vendor),
-  "Bride": (brides || []).map((bride) => bride?.name || bride),
-  "Groom":(grooms || []).map((groom) => groom?.name || groom),
+  "Wedding Venue": weddingVenues,
+  "Wedding Vendor": categorizedWeddingVendors,
+  Bride: brides,
+  Groom: grooms,
 };
 
-
-
-
-// ===========================================================================================================
-
-
-
- export const weddingVenuesWithImage = [
+export const weddingVenuesWithImage = [
   { name: "Wedding Lawns Farmhouse", image: "/weddingvenue/weddingfarm.webp" },
   { name: "Hotel", image: "/weddingvenue/hotel.jpg" },
   { name: "Banquet Halls", image: "/weddingvenue/banquet.jpg" },
@@ -144,10 +178,7 @@ export const weddingVendorsWithImage = [
   { name: "Wedding Coordinators", image: "/weddingvendors/cordinator.jpg" },
   { name: "Wedding Music", image: "/weddingvendors/band.jpeg" },
   { name: "Wedding Videographers", image: "/weddingvendors/cateres.jpg" },
-  {
-    name: "Wedding Transportation",
-    image: "/weddingvendors/transportt.avif",
-  },
+  { name: "Wedding Transportation", image: "/weddingvendors/transportt.avif" },
   { name: "Wedding House", image: "/weddingvendors/house.jpg" },
   { name: "Tent House", image: "/weddingvendors/tent.jpeg" },
   { name: "Wedding Entertainment", image: "/weddingvendors/game.jpeg" },
@@ -176,56 +207,55 @@ export const groomsWithImage = [
   { name: "Men's Accessories", image: "/groom/aceeroes.jpg" },
 ];
 
-
 export const categories = [
-    {
-      title: "Wedding Venues",
-      description: "Find stunning venues, from grand resorts to cozy gardens!",
-      image: "/discover/wedding-venues.png",
-      subcategories: weddingVenuesWithImage,
-    },
-    {
-      title: "Wedding Vendors",
-      description:
-        "Top-rated professionals to bring your wedding vision to life!",
-      image: "/discover/wedding-vendor.png",
-      subcategories: weddingVendorsWithImage,
-    },
-    {
-      title: "Bride",
-      description:
-        "Bridal wear, beauty, and essentials for your perfect wedding look!",
-      image: "/discover/bride.png",
-      subcategories: bridesWithImage,
-    },
-    {
-      title: "Groom",
-      description:
-        "Stylish suits, grooming, and accessories for the modern groom!",
-      image: "/discover/groom.png",
-      subcategories: groomsWithImage,
-    },
-    {
-      title: "Wedding Services",
-      description:
-        "Planners, decorators, caterers & more for a seamless wedding!",
-      image: "/discover/wedding-services.png",
-      subcategories: [
-        { name: "Wedding Planners", image: "/weddingservices/planner.webp" },
-        { name: "Decorators", image: "/weddingservices/decorator.jpg" },
-      ],
-    },
-    {
-      title: "Other Services",
-      description:
-        "Entertainment, transport, and extras for a flawless celebration!",
-      image: "/discover/other.png",
-      subcategories: [
-        { name: "Live Bands", image: "/otherimages/band.webp" },
-        { name: "Luxury Transport", image: "/otherimages/transport.jpeg" },
-        { name: "Fireworks & Effects", image: "/otherimages/fireworks.jpeg" },
-      ],
-    },
-  ];
+  {
+    title: "Wedding Venues",
+    description: "Find stunning venues, from grand resorts to cozy gardens!",
+    image: "/discover/wedding-venues.png",
+    subcategories: weddingVenuesWithImage,
+  },
+  {
+    title: "Wedding Vendors",
+    description:
+      "Top-rated professionals to bring your wedding vision to life!",
+    image: "/discover/wedding-vendor.png",
+    subcategories: weddingVendorsWithImage,
+  },
+  {
+    title: "Bride",
+    description:
+      "Bridal wear, beauty, and essentials for your perfect wedding look!",
+    image: "/discover/bride.png",
+    subcategories: bridesWithImage,
+  },
+  {
+    title: "Groom",
+    description:
+      "Stylish suits, grooming, and accessories for the modern groom!",
+    image: "/discover/groom.png",
+    subcategories: groomsWithImage,
+  },
+  {
+    title: "Wedding Services",
+    description:
+      "Planners, decorators, caterers & more for a seamless wedding!",
+    image: "/discover/wedding-services.png",
+    subcategories: [
+      { name: "Wedding Planners", image: "/weddingservices/planner.webp" },
+      { name: "Decorators", image: "/weddingservices/decorator.jpg" },
+    ],
+  },
+  {
+    title: "Other Services",
+    description:
+      "Entertainment, transport, and extras for a flawless celebration!",
+    image: "/discover/other.png",
+    subcategories: [
+      { name: "Live Bands", image: "/otherimages/band.webp" },
+      { name: "Luxury Transport", image: "/otherimages/transport.jpeg" },
+      { name: "Fireworks & Effects", image: "/otherimages/fireworks.jpeg" },
+    ],
+  },
+];
 
-  export {img1,img2,img3,img4,img5,img6,motionlogo}
+export { img1, img2, img3, img4, img5, img6, motionlogo };
