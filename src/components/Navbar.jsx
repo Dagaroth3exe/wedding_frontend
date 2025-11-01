@@ -61,7 +61,7 @@ function Navbar() {
 
   const categories = [
     { title: "Venue", key: "Wedding Venue", gridCols: 1, width: "w-48" },
-    { title: "Vendor", key: "Wedding Vendor", gridCols: 1, width: "w-64" }, // Updated width for accordion
+    { title: "Services", key: "Wedding Vendor", gridCols: 1, width: "w-64" }, // This width is for the FIRST panel
     { title: "Brides", key: "Bride", gridCols: 1, width: "w-48" },
     { title: "Grooms", key: "Groom", gridCols: 1, width: "w-48" },
   ];
@@ -277,6 +277,9 @@ function Navbar() {
 
 export default Navbar;
 
+// ===========================================================================================================
+// ⭐ UPDATED DropdownMenu COMPONENT (with Fly-out Sub-menu) ⭐
+// ===========================================================================================================
 const DropdownMenu = ({
   title,
   categoryKey,
@@ -287,61 +290,58 @@ const DropdownMenu = ({
   gridCols = 1,
   width = "w-48",
 }) => {
-  // State to manage which category section is open (for the Accordion only)
-  const [openAccordion, setOpenAccordion] = useState(null);
+  // State to manage which fly-out sub-menu is open
+  const [openSubMenu, setOpenSubMenu] = useState(null);
 
   const subcategoryData = allCategories[categoryKey] || [];
 
   // Determines if we use the structured (Vendor) data or the flat data
   const isCategorized = categoryKey === "Wedding Vendor" && Array.isArray(subcategoryData) && subcategoryData.length > 0 && typeof subcategoryData[0] === 'object';
 
-  // Use the width passed from the 'categories' array
+  // Use the width passed from the 'categories' array for the first panel
   const finalWidth = width;
-
-  // Function to toggle the accordion open/closed
-  const toggleAccordion = (title) => {
-    setOpenAccordion(openAccordion === title ? null : title);
-  };
 
   return (
     <li
       className="relative lg:inline-block "
       onMouseEnter={() => setDropdown(categoryKey)}
-      onMouseLeave={() => { setDropdown(""); setOpenAccordion(null); }} // Reset accordion on mouse leave
+      // Clear both dropdown and sub-menu state on leave
+      onMouseLeave={() => { setDropdown(""); setOpenSubMenu(null); }}
     >
       <span className="cursor-pointer hover:text-primary">{title}</span>
       {dropdown === categoryKey && (
         <div
-          // Use default styling, as the accordion is not a wide mega-menu
+          // This is the FIRST panel
           className={`absolute left-0 top-full bg-white text-gray-800 shadow-lg ${finalWidth} py-2 z-40 rounded-b-lg border border-t-0`}
         >
           {isCategorized ? (
-            // ⭐ NEW ACCORDION RENDERING FOR 'Wedding Vendor' ⭐
+            // ⭐ NEW FLY-OUT RENDERING FOR 'Wedding Vendor' ⭐
             <ul className="flex flex-col">
               {subcategoryData.map((category, catIndex) => (
-                <li key={catIndex} className="w-full">
-                  {/* ACCORDION HEADER (The Parent Heading) */}
-                  <button
-                    onClick={() => toggleAccordion(category.title)}
-                    className="flex justify-between items-center w-full px-4 py-2 text-left font-semibold hover:bg-gray-100"
-                  >
-                    {category.title}
-                    <ChevronRight
-                      size={16}
-                      className={`transition-transform duration-300 ${openAccordion === category.title ? 'rotate-90' : 'rotate-0'}`}
-                    />
-                  </button>
+                <li
+                  key={catIndex}
+                  className="w-full relative" // Parent li must be relative
+                  onMouseEnter={() => setOpenSubMenu(category.title)} // Set sub-menu on hover
+                >
+                  {/* Parent Category Item */}
+                  <div className="flex justify-between items-center w-full px-4 py-2 text-left font-semibold hover:bg-gray-100 cursor-pointer">
+                    <span>{category.title}</span>
+                    <ChevronRight size={16} />
+                  </div>
 
-                  {/* ACCORDION CONTENT (The Sub-Options) */}
-                  {openAccordion === category.title && (
-                    <ul className="px-4 pb-2 space-y-1 bg-gray-50 border-t">
+                  
+                  {openSubMenu === category.title && (
+                    <ul
+                      className="absolute left-full top-0 w-56 bg-white shadow-lg rounded-r-lg border z-50 py-2"
+                      // This panel appears to the right of the parent list
+                    >
                       {category.items.map((subcategory, subIndex) => (
                         <li key={subIndex}>
                           <button
                             onClick={() => {
                               handleNavigate(categoryKey, subcategory);
                             }}
-                            className="block text-left w-full pl-6 py-1 text-sm hover:text-primary"
+                            className="block text-left w-full px-4 py-2 text-sm hover:text-primary hover:bg-gray-100"
                           >
                             {subcategory}
                           </button>
