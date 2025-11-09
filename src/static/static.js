@@ -151,6 +151,15 @@ export const categorizedWeddingVendors = [
       "Invitation",
     ],
   },
+  {title: "Venue Services", items: [
+    "Wedding Lawns Farmhouse",
+    "Hotel",
+    "Banquet Halls",
+    "Marriage Garden",
+    "Marriage Garden",
+    "Wedding Resorts",
+    "Destination Wedding",
+  ]},
 ];
 
 export const allCategories = {
@@ -212,7 +221,7 @@ export const categories = [
     title: "Wedding Venues",
     description: "Find stunning venues, from grand resorts to cozy gardens!",
     image: "/discover/wedding-venues.png",
-    subcategories: weddingVenuesWithImage,
+    subcategories:  weddingVenuesWithImage,
   },
   {
     title: "Wedding Vendors",

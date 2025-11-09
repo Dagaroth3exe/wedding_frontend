@@ -60,7 +60,7 @@ function Navbar() {
   const toggleProfile = () => setIsProfileOpen((prev) => !prev);
 
   const categories = [
-    { title: "Venue", key: "Wedding Venue", gridCols: 1, width: "w-48" },
+   
     { title: "Services", key: "Wedding Vendor", gridCols: 1, width: "w-64" }, // This width is for the FIRST panel
     { title: "Brides", key: "Bride", gridCols: 1, width: "w-48" },
     { title: "Grooms", key: "Groom", gridCols: 1, width: "w-48" },
